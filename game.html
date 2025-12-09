@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Code Breaker - Raymond's Portfolio</title>
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        .game-container {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+            background-color: var(--bg-color);
+        }
+
+        .game-content {
+            max-width: 600px;
+            width: 100%;
+        }
+
+        .game-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .game-header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: var(--primary-color);
+        }
+
+        .game-header p {
+            color: var(--text-light);
+            font-size: 1rem;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-bottom: 2rem;
+            color: var(--accent-color);
+            text-decoration: none;
+            font-size: 0.9rem;
+        }
+
+        .back-link:hover {
+            color: var(--primary-color);
+        }
+
+        .game-board {
+            background-color: var(--bg-light);
+            border: 1px solid var(--border-color);
+            padding: 3rem;
+            margin-bottom: 2rem;
+        }
+
+        .stats {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .stat {
+            text-align: center;
+        }
+
+        .stat-label {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--text-lighter);
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-value {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--primary-color);
+        }
+
+        .code-display {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin: 2rem 0;
+        }
+
+        .code-digit {
+            width: 60px;
+            height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            font-weight: 600;
+            border: 2px solid var(--border-color);
+            background-color: white;
+            color: var(--primary-color);
+            font-family: 'Courier New', monospace;
+        }
+
+        .code-digit.revealed {
+            background-color: var(--accent-color);
+            color: white;
+            border-color: var(--accent-color);
+        }
+
+        .number-pad {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 0.75rem;
+            margin: 2rem 0;
+        }
+
+        .number-btn {
+            aspect-ratio: 1;
+            border: 2px solid var(--border-color);
+            background-color: white;
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--primary-color);
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-family: 'Courier New', monospace;
+        }
+
+        .number-btn:hover:not(:disabled) {
+            background-color: var(--primary-color);
+            color: white;
+            border-color: var(--primary-color);
+            transform: translateY(-2px);
+        }
+
+        .number-btn:disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+        }
+
+        .number-btn.correct {
+            background-color: #10b981;
+            color: white;
+            border-color: #10b981;
+        }
+
+        .number-btn.wrong {
+            background-color: #ef4444;
+            color: white;
+            border-color: #ef4444;
+        }
+
+        .game-message {
+            text-align: center;
+            padding: 1.5rem;
+            margin: 2rem 0;
+            border: 1px solid var(--border-color);
+            background-color: white;
+            font-size: 1.1rem;
+            color: var(--text-color);
+        }
+
+        .game-message.success {
+            background-color: #d1fae5;
+            border-color: #10b981;
+            color: #065f46;
+        }
+
+        .game-message.failure {
+            background-color: #fee2e2;
+            border-color: #ef4444;
+            color: #991b1b;
+        }
+
+        .control-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+        }
+
+        .control-btn {
+            padding: 1rem 2rem;
+            background-color: var(--primary-color);
+            color: white;
+            border: 2px solid var(--primary-color);
+            font-size: 0.95rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .control-btn:hover {
+            background-color: transparent;
+            color: var(--primary-color);
+        }
+
+        .control-btn.secondary {
+            background-color: transparent;
+            color: var(--primary-color);
+        }
+
+        .control-btn.secondary:hover {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        .hint {
+            text-align: center;
+            margin-top: 1.5rem;
+            font-size: 0.9rem;
+            color: var(--text-lighter);
+        }
+
+        @media (max-width: 768px) {
+            .game-board {
+                padding: 2rem 1.5rem;
+            }
+
+            .code-digit {
+                width: 50px;
+                height: 70px;
+                font-size: 1.75rem;
+            }
+
+            .number-pad {
+                gap: 0.5rem;
+            }
+
+            .number-btn {
+                font-size: 1.25rem;
+            }
+
+            .control-buttons {
+                flex-direction: column;
+            }
+
+            .control-btn {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="game-container">
+        <div class="game-content">
+            <a href="index.html" class="back-link">← Back to Portfolio</a>
+            
+            <div class="game-header">
+                <h1>Code Breaker</h1>
+                <p>Crack the 4-digit code by guessing numbers. You have 10 attempts!</p>
+            </div>
+
+            <div class="game-board">
+                <div class="stats">
+                    <div class="stat">
+                        <div class="stat-label">Attempts Left</div>
+                        <div class="stat-value" id="attempts">10</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-label">Score</div>
+                        <div class="stat-value" id="score">0</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-label">Best Streak</div>
+                        <div class="stat-value" id="streak">0</div>
+                    </div>
+                </div>
+
+                <div class="code-display" id="codeDisplay">
+                    <div class="code-digit">?</div>
+                    <div class="code-digit">?</div>
+                    <div class="code-digit">?</div>
+                    <div class="code-digit">?</div>
+                </div>
+
+                <div id="gameMessage" class="game-message" style="display: none;"></div>
+
+                <div class="number-pad" id="numberPad">
+                    <button class="number-btn" data-number="0">0</button>
+                    <button class="number-btn" data-number="1">1</button>
+                    <button class="number-btn" data-number="2">2</button>
+                    <button class="number-btn" data-number="3">3</button>
+                    <button class="number-btn" data-number="4">4</button>
+                    <button class="number-btn" data-number="5">5</button>
+                    <button class="number-btn" data-number="6">6</button>
+                    <button class="number-btn" data-number="7">7</button>
+                    <button class="number-btn" data-number="8">8</button>
+                    <button class="number-btn" data-number="9">9</button>
+                </div>
+
+                <div class="hint" id="hint">Select a number to make your first guess</div>
+
+                <div class="control-buttons">
+                    <button class="control-btn" id="newGameBtn">New Game</button>
+                    <button class="control-btn secondary" id="giveUpBtn">Reveal Code</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/game.js"></script>
+</body>
+</html>
