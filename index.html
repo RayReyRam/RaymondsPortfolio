@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Raymond's Portfolio - Web Developer & Designer">
+    <title>Raymond's Portfolio</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/responsive.css">
+</head>
+<body>
+    <header>
+        <nav class="navbar">
+            <div class="logo">Raymond</div>
+            <ul class="nav-links">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#skills">Skills</a></li>
+                <li><a href="#projects">Projects</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <section id="home" class="hero">
+            <div class="hero-content">
+                <h1>Hi, I'm <span class="highlight">Raymond</span></h1>
+                <p class="tagline">Web Developer & Creative Designer</p>
+                <a href="#projects" class="cta-button">View My Work</a>
+            </div>
+        </section>
+
+        <section id="about" class="about">
+            <div class="container">
+                <h2>About Me</h2>
+                <div class="about-content">
+                    <div class="about-text">
+                        <p>Hello! I'm a passionate web developer with experience in creating beautiful and functional websites.</p>
+                        <p>I love turning ideas into reality through clean code and thoughtful design.</p>
+                    </div>
+                    <div class="about-image">
+                        <img src="images/profile.jpg" alt="Raymond's Profile">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="skills" class="skills">
+            <div class="container">
+                <h2>Skills</h2>
+                <div class="skills-grid">
+                    <div class="skill-card">
+                        <i class="skill-icon">💻</i>
+                        <h3>Frontend</h3>
+                        <p>HTML, CSS, JavaScript, React</p>
+                    </div>
+                    <div class="skill-card">
+                        <i class="skill-icon">⚙️</i>
+                        <h3>Backend</h3>
+                        <p>Node.js, Python, SQL</p>
+                    </div>
+                    <div class="skill-card">
+                        <i class="skill-icon">🎨</i>
+                        <h3>Design</h3>
+                        <p>Figma, Photoshop, UI/UX</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="projects" class="projects">
+            <div class="container">
+                <h2>Projects</h2>
+                <div class="projects-grid">
+                    <div class="project-card">
+                        <img src="images/projects/project1.jpg" alt="Project 1">
+                        <div class="project-info">
+                            <h3>Project Title 1</h3>
+                            <p>Brief description of the project</p>
+                            <div class="project-links">
+                                <a href="#" class="btn">Live Demo</a>
+                                <a href="#" class="btn">GitHub</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="project-card">
+                        <img src="images/projects/project2.jpg" alt="Project 2">
+                        <div class="project-info">
+                            <h3>Project Title 2</h3>
+                            <p>Brief description of the project</p>
+                            <div class="project-links">
+                                <a href="#" class="btn">Live Demo</a>
+                                <a href="#" class="btn">GitHub</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="project-card">
+                        <img src="images/projects/project3.jpg" alt="Project 3">
+                        <div class="project-info">
+                            <h3>Project Title 3</h3>
+                            <p>Brief description of the project</p>
+                            <div class="project-links">
+                                <a href="#" class="btn">Live Demo</a>
+                                <a href="#" class="btn">GitHub</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="contact" class="contact">
+            <div class="container">
+                <h2>Get In Touch</h2>
+                <form class="contact-form">
+                    <input type="text" placeholder="Your Name" required>
+                    <input type="email" placeholder="Your Email" required>
+                    <textarea placeholder="Your Message" rows="5" required></textarea>
+                    <button type="submit" class="submit-btn">Send Message</button>
+                </form>
+                <div class="social-links">
+                    <a href="#" aria-label="GitHub">GitHub</a>
+                    <a href="#" aria-label="LinkedIn">LinkedIn</a>
+                    <a href="#" aria-label="Twitter">Twitter</a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Raymond. All rights reserved.</p>
+    </footer>
+
+    <script src="js/main.js"></script>
+</body>
+</html>
